@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "129408984288",
+    "firebase_url": "https://hangout-private.firebaseio.com",
+    "project_id": "hangout-private",
+    "storage_bucket": "hangout-private.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129408984288:android:85255cbc0144b5c5",
+        "android_client_info": {
+          "package_name": "com.example.nemo1.hangout_private"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "129408984288-l76lsr91l9ja641fnbpa5cmbn8v6ppc0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2KRIXHJ0XhD5hZhEH6LqchakqX22-_fM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
