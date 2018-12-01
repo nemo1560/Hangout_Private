@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.nemo1.hangout_private.Adapters.UsersAdapter;
@@ -22,12 +22,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class UserFragment extends Fragment implements Users{
+public class UserFragment extends Fragment implements Users, View.OnClickListener {
     private CallBack callBack;
     private UsersModel usersModel;
     private UsersAdapter usersAdapter;
     private String userName;
     @BindView(R.id.listUsers)ListView listUsers;
+    @BindView(R.id.logout)Button logout;
 
     @Override
     public void onAttach(Context context) {
@@ -41,8 +42,14 @@ public class UserFragment extends Fragment implements Users{
         View view = inflater.inflate(R.layout.fragment_users,container,false);
         ButterKnife.bind(this,view);
         getUsers();
+        initEvent();
         return view;
     }
+
+    private void initEvent() {
+        logout.setOnClickListener(this);
+    }
+
 
     public void getUsers(){
         usersModel = new UsersModel(UserFragment.this);
@@ -56,5 +63,10 @@ public class UserFragment extends Fragment implements Users{
         }
         usersAdapter = new UsersAdapter(getActivity(),R.layout.layout_users,stringList,userName,callBack);
         listUsers.setAdapter(usersAdapter);
+    }
+
+    @Override
+    public void onClick(View v) {
+        callBack.onCallBackLogout();
     }
 }

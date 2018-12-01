@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
+    android:orientation="vertical"
     android:background="@android:color/black">
-
     <ListView
         android:id="@+id/listUsers"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
-</FrameLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1"></ListView>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".1">
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Logout"/>
+    </FrameLayout>
+</LinearLayout>
