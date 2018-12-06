@@ -20,6 +20,7 @@ import com.example.nemo1.hangout_private.Entity.eChat;
 import com.example.nemo1.hangout_private.Interfaces.CallBack;
 import com.example.nemo1.hangout_private.Interfaces.Chat;
 import com.example.nemo1.hangout_private.Models.ChatModel;
+import com.example.nemo1.hangout_private.Models.WeatherModel;
 import com.example.nemo1.hangout_private.R;
 
 import java.util.List;
@@ -39,6 +40,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Chat
     private String userName,
             userClient,
             content;
+    private WeatherModel weatherModel;
 
     @Override
     public void onAttach(Context context) {
@@ -51,6 +53,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Chat
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat,container,false);
         ButterKnife.bind(this,view);
+        weatherModel = new WeatherModel(getActivity());
         chatModel = new ChatModel(getActivity(),ChatFragment.this);
         initEvent();
         if(getArguments() != null){

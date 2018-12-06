@@ -9,6 +9,9 @@ public class eWeather {
 
     private Current current;
 
+    public eWeather() {
+    }
+
     public Location getLocation ()
     {
         return location;

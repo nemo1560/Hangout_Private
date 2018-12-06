@@ -1,11 +1,15 @@
 package com.example.nemo1.hangout_private.Entity;
 
 public class Condition {
+
     private String icon;
 
     private String text;
 
     private String code;
+
+    public Condition() {
+    }
 
     public String getIcon ()
     {

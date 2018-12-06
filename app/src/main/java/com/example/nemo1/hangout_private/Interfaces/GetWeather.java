@@ -11,6 +11,6 @@ import retrofit2.http.Query;
  */
 
 public interface GetWeather {
-    @GET("/current.json?key=a9919d781737410a90e72432180311")
+    @GET("current.json?key=a9919d781737410a90e72432180311")
     Call<eWeather> getAPIWeather(@Query("q")String location);
 }
