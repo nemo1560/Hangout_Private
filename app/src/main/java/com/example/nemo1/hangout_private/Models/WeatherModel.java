@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import com.example.nemo1.hangout_private.Entity.eWeather;
 import com.example.nemo1.hangout_private.Instance.InstanceRetrofitAPIWeather;
@@ -31,7 +32,8 @@ public class WeatherModel implements GoogleApiClient.ConnectionCallbacks, Google
     private static final long FASTEST_INTERVAL = 5000;
     private Context context;
 
-    public WeatherModel() {
+    public WeatherModel(Context context) {
+        this.context = context;
         buildGoogleAPIClientRequest();
         buildLocationRequest();
         getGPS();
@@ -64,6 +66,8 @@ public class WeatherModel implements GoogleApiClient.ConnectionCallbacks, Google
         Location location2 = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
         if (location2 != null){
             location = location2;
+            String locationString = location.getAltitude()+","+location.getLongitude();
+            getWeather(locationString);
         }
     }
 
@@ -99,6 +103,7 @@ public class WeatherModel implements GoogleApiClient.ConnectionCallbacks, Google
             public void onResponse(retrofit2.Call<eWeather> call, Response<eWeather> response) {
                 eWeather.setCurrent(response.body().getCurrent());
                 eWeather.setLocation(response.body().getLocation());
+                Log.d("weather",eWeather.getCurrent().getTemp_c());
             }
 
             @Override

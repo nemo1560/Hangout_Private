@@ -44,6 +44,12 @@ public class ChatOutputAdapter extends RecyclerView.Adapter<ChatOutputAdapter.My
         return eChatList.size();
     }
 
+    //Build multipleviewtype
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder{
         private TextView user_output,output_text;
 
