@@ -14,6 +14,7 @@ import android.util.Log;
 
 import com.example.nemo1.hangout_private.Entity.eWeather;
 import com.example.nemo1.hangout_private.Instance.InstanceRetrofitAPIWeather;
+import com.example.nemo1.hangout_private.Interfaces.Chat;
 import com.example.nemo1.hangout_private.Interfaces.GetWeather;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -31,11 +32,14 @@ public class WeatherModel implements GoogleApiClient.ConnectionCallbacks, Google
     private static final long UPDATE_INTERVAL = 5000;
     private static final long FASTEST_INTERVAL = 5000;
     private Context context;
+    private Chat chat;
 
-    public WeatherModel(Context context) {
+    public WeatherModel(Context context, Chat chat) {
         this.context = context;
+        this.chat = chat;
         buildGoogleAPIClientRequest();
         buildLocationRequest();
+        googleApiClient.connect();
         getGPS();
     }
 
@@ -103,7 +107,7 @@ public class WeatherModel implements GoogleApiClient.ConnectionCallbacks, Google
             public void onResponse(retrofit2.Call<eWeather> call, Response<eWeather> response) {
                 eWeather.setCurrent(response.body().getCurrent());
                 eWeather.setLocation(response.body().getLocation());
-                Log.d("weather",eWeather.getCurrent().getTemp_c());
+                chat.onGetWeather(eWeather.getCurrent().getTemp_c());
             }
 
             @Override

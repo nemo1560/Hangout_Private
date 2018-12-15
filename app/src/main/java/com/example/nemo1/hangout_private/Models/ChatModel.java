@@ -53,8 +53,8 @@ public class ChatModel {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 databaseReference.setValue(content);
-                stringList.add(new eChat("me",content));
-                chat.onSendContent(stringList,0);
+                stringList.add(new eChat("me",content,1));
+                chat.onSendContent(stringList);
             }
 
             @Override
@@ -71,9 +71,9 @@ public class ChatModel {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 String content = dataSnapshot.getValue(String.class);
-                stringList.add(new eChat(userClient,content));
+                stringList.add(new eChat(userClient,content,0));
                 createNotification(content);
-                chat.onSendContent(stringList,1);
+                chat.onRecieverContent(stringList);
             }
 
             @Override

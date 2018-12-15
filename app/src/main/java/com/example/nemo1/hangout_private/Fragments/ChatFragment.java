@@ -12,10 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.example.nemo1.hangout_private.Adapters.ChatInputAdapter;
-import com.example.nemo1.hangout_private.Adapters.ChatOutputAdapter;
+import android.widget.Toast;
+import com.example.nemo1.hangout_private.Adapters.ChatAdapter;
 import com.example.nemo1.hangout_private.Entity.eChat;
 import com.example.nemo1.hangout_private.Interfaces.CallBack;
 import com.example.nemo1.hangout_private.Interfaces.Chat;
@@ -33,8 +32,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Chat
     @BindView(R.id.chat_output)RecyclerView chat_output;
     @BindView(R.id.chat_input)EditText chat_input;
     @BindView(R.id.send)Button send;
-    private ChatOutputAdapter chatOutputAdapter;
-    private ChatInputAdapter chatInputAdapter;
+    private ChatAdapter chatAdapter;
     private ChatModel chatModel;
     private WeatherModel weatherModel;
     private LinearLayoutManager linearLayoutManager;
@@ -53,7 +51,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Chat
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat,container,false);
         ButterKnife.bind(this,view);
-        weatherModel = new WeatherModel(getActivity());
+        weatherModel = new WeatherModel(getActivity(),ChatFragment.this);
         chatModel = new ChatModel(getActivity(),ChatFragment.this);
         initEvent();
         if(getArguments() != null){
@@ -82,15 +80,23 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Chat
     }
 
     @Override
-    public void onSendContent(List<eChat> chats, int send) {
-        chatOutputAdapter = new ChatOutputAdapter(getActivity(),chats,send);
+    public void onSendContent(List<eChat> chats) {
+        chatAdapter = new ChatAdapter(getActivity(),chats);
         linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
-        chat_output.setAdapter(chatOutputAdapter);
+        chat_output.setAdapter(chatAdapter);
         chat_output.setLayoutManager(linearLayoutManager);
     }
 
     @Override
-    public void onRecieverContent(List<eChat> chats, int receive) {
+    public void onRecieverContent(List<eChat> chats) {
+        chatAdapter = new ChatAdapter(getActivity(),chats);
+        linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        chat_output.setAdapter(chatAdapter);
+        chat_output.setLayoutManager(linearLayoutManager);
+    }
 
+    @Override
+    public void onGetWeather(String temp_c) {
+        Toast.makeText(getActivity(),temp_c,Toast.LENGTH_LONG).show();
     }
 }
