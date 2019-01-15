@@ -14,7 +14,7 @@ public class InstanceRetrofitAPIWeather {
     public static Retrofit RetrofitInstance() {
         if (instance == null) {
             instance = new Retrofit.Builder()
-                    .baseUrl("http://api.apixu.com/v1")
+                    .baseUrl("http://api.apixu.com/v1/")
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
