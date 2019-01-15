@@ -33,6 +33,7 @@ public class WeatherModel implements GoogleApiClient.ConnectionCallbacks, Google
     private static final long FASTEST_INTERVAL = 5000;
     private Context context;
     private Chat chat;
+    private String locationString;
 
     public WeatherModel(Context context, Chat chat) {
         this.context = context;
@@ -70,7 +71,7 @@ public class WeatherModel implements GoogleApiClient.ConnectionCallbacks, Google
         Location location2 = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
         if (location2 != null){
             location = location2;
-            String locationString = location.getAltitude()+","+location.getLongitude();
+            locationString = location.getLatitude()+","+location.getLongitude();
             getWeather(locationString);
         }
     }
@@ -88,7 +89,7 @@ public class WeatherModel implements GoogleApiClient.ConnectionCallbacks, Google
     @Override
     public void onLocationChanged(Location location) {
         this.location = location;
-        String locationString = location.getAltitude()+","+location.getLongitude();
+        locationString = location.getLatitude()+","+location.getLongitude();
         getWeather(locationString);
     }
 
@@ -98,10 +99,11 @@ public class WeatherModel implements GoogleApiClient.ConnectionCallbacks, Google
 
     }
 
-    public void getWeather(String attidute){
+    public void getWeather(String location){
+        Log.d("toa do",location);
         final eWeather eWeather = new eWeather();
         GetWeather getWeather = InstanceRetrofitAPIWeather.RetrofitInstance().create(GetWeather.class);
-        retrofit2.Call<eWeather>eWeatherCall = getWeather.getAPIWeather(attidute);
+        retrofit2.Call<eWeather>eWeatherCall = getWeather.getAPIWeather(location);
         eWeatherCall.enqueue(new Callback<eWeather>() {
             @Override
             public void onResponse(retrofit2.Call<eWeather> call, Response<eWeather> response) {
